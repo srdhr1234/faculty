@@ -1,0 +1,72 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            <form method="GET">
+            {% csrf_token %} 
+            <center>
+
+            {{filterrrh.form}}
+            </center>
+        </div>
+    </div>
+</div>
+<center><button class="btn btn-info" type="Submit">Search</button></center><br>
+
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Faculty Name </th>
+        <th> Academic Role </th>
+        <th> Details of Role </th>
+        <th> Proof </th>
+     
+        
+    </tr>
+
+    {% for arrh in arrh %}
+    <tr>
+        
+        <td> {{ arrh.academic_years }} </td>
+        <td> {{ arrh.faculty.first_name }} {{ arrh.faculty.last_name }} </td>
+        <td> {{ arrh.syllabusset }} </td> 
+        <td> {{ arrh.details }} </td> 
+        
+        {% if arrh.proof.url is not null %}
+            <td><a href="{{ arrh.proof.url }}" target="_blank">View</a></td>
+        {% endif %}
+               
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

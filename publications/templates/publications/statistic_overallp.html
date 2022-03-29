@@ -1,0 +1,97 @@
+
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Statistics {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/stat.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+    <form  method="POST">
+    {% csrf_token %} 
+    <div class="container ">
+    <center>
+    <label><h5><mark class="bg-warning">Select the Academic Year:</mark></label>
+    
+    <select name="years">
+        <option value="2020-2021">2020-2021</option>
+        <option value="2021-2022">2021-2022</option>
+        <option value="2022-2023">2022-2023</option>
+        <option value="2023-2024">2023-2024</option>
+        <option value="2024-2025">2024-2025</option>
+    </select>
+    </h5>
+ 
+    <button class="btn btn-secondary border btn-outline-dark btn-lg" type="Submit">Search</button>
+    </center>
+    </div>
+
+
+<table class="table">   
+    <tr>   
+    <th>Department/Events </th>
+    {% for d in departm %}    
+        <th>  {{ d }} </th>
+    {% endfor %}               
+    </tr>
+
+    <tr>
+    <th> Conference </th>   
+    {% for key,value in pubcons.items %}
+        <td> {{ value }} </td>                   
+    {% endfor %}   
+    </tr>
+    
+    <tr>
+    <th> Journal </th>   
+    {% for key,value in pubjors.items %}
+        <td> {{ value }} </td>          
+    {% endfor %}   
+    </tr>
+    
+    <tr>
+    <th> Book Chapter </th>   
+    {% for key,value in bookchaps.items %}
+        <td> {{ value }} </td>          
+    {% endfor %}   
+    </tr>
+    
+    <tr>
+    <th> Book </th>   
+    {% for key,value in bookks.items %}
+        <td> {{ value }} </td>      
+    {% endfor %}   
+    </tr>
+    
+    <tr>
+    <th> Patent </th>   
+    {% for key,value in patentts.items %}
+        <td> {{ value }} </td>      
+    {% endfor %}   
+    </tr>
+    
+    <tr>
+    <th> Copyright </th>   
+    {% for key,value in copyrightts.items %}
+        <td> {{ value }} </td>          
+    {% endfor %}   
+    </tr>
+             
+</table>
+
+
+</form>
+
+
+{% endblock %}
+</body>
+</html>

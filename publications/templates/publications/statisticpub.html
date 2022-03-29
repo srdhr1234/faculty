@@ -1,0 +1,127 @@
+
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Statistics {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/stat.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+    <form  method="POST">
+    {% csrf_token %} 
+    <div class="container ">
+    <center>
+
+    <label><h5><mark class="bg-warning">Select the Academic Year:</mark></label>
+    <select name="years">
+        <option value="2020-2021">2020-2021</option>
+        <option value="2021-2022">2021-2022</option>
+        <option value="2022-2023">2022-2023</option>
+        <option value="2023-2024">2023-2024</option>
+        <option value="2024-2025">2024-2025</option>
+
+    </select>
+    
+    <label><mark class="bg-warning">Select the Department:</mark></label>
+    <select name="dep">
+        <option value="Civil">Civil</option>
+        <option value="CMPN">CMPN</option>
+        <option value="IT">IT</option>
+        <option value="Mechanical">Mechanical</option>
+        <option value="FE">FE</option>
+    </select>
+    </h5>
+    
+    <button class="btn btn-secondary border btn-outline-dark btn-lg" type="Submit">Search</button>
+
+    </center>
+    </div>
+
+<table class="table">
+       
+    <tr>   
+    <th> Faculty Name/Events </th>
+    {% for u in all_user %} 
+        {% if u.profile.dept == dep %}   
+        <th>  {{ u.first_name }} {{ u.last_name }} </th>
+        
+        {% endif %} 
+    {% endfor %}               
+    </tr>
+
+    <tr>
+    <th> Conference </th>   
+    {% for key,value in pubcons.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> Journal </th>   
+    {% for key,value in pubjors.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> Book Chapter </th>   
+    {% for key,value in bookchaps.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> Book </th>   
+    {% for key,value in bookks.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> Patent </th>   
+    {% for key,value in patentts.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> Copyright </th>   
+    {% for key,value in copyrightts.items %}
+        {% if key.profile.dept == dep %}           
+            <td> {{ value }} </td>
+        {% endif %}           
+    {% endfor %}   
+    </tr>
+
+    
+
+
+             
+</table>
+
+
+</form>
+
+
+{% endblock %}
+</body>
+</html>

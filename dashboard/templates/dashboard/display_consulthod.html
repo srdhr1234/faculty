@@ -1,0 +1,75 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-11">
+                <form method="GET">
+                {% csrf_token %} 
+                <h5>
+                {{filterconh.form}}
+                </h5>
+            </div>
+        </div>
+    </div>
+    <center><button class="btn btn-info" type="Submit">Search</button></center><br>
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Faculty Name </th>
+        <th> Consultancy Type </th>
+        <th> Organization Details </th>
+        <th> Project Details </th>
+        <th> Start Date </th>
+        <th> End Date </th>
+        <th> Duration </th>
+        <th> Proof </th>      
+    </tr>
+
+    {% for conh in conh %}
+    <tr>
+        
+        <td> {{ conh.academic_years }} </td> 
+        <td> {{ conh.faculty.first_name }} {{ conh.faculty.last_name }} </td>
+        <td> {{ conh.type_con }} </td> 
+        <td> {{ conh.orgdet }} </td> 
+        <td> {{ conh.prodet }} </td> 
+        <td> {{ conh.start_date }} </td> 
+        <td> {{ conh.end_date }} </td> 
+        <td> {{ conh.durations }} </td>   
+        {% if conh.proof.url is not null %}
+            <td><a href="{{ conh.proof.url }}" target="_blank">View</a></td>
+        {% endif %}     
+        
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

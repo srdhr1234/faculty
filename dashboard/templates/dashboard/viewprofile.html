@@ -1,0 +1,90 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display All Profile{% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+<table class="table table-hover ">
+    
+    <tr>
+        <th> Image </th>
+        <th> Faculty Name </th>
+        <th> Designation </th>
+        <th> Date of Joining </th>
+        <th> Teaching Experience </th>
+        <th> Industry Experience </th>
+        <th> PAN </th>
+        <th> Aadhar </th>
+        <th> Resume </th>
+        <th> Appointment Letter </th>
+        <th> B.E. Proof </th>
+        <th> M.E./M.Tech Proof </th>
+        <th> Phd Proof </th>
+        <th> PAN Proof </th>
+        <th> Aadhar Proof</th>
+       
+        
+    </tr>
+
+    {% for display in display %}
+    <tr>
+       
+        {% if display.photo %}
+        <td><img class="pic" src="{{ display.photo.url }}"></img></td>
+        {% endif %} 
+        <td> {{ display.faculty.first_name }} {{ display.faculty.last_name }} </td>
+        <td> {{ display.designation }} </td>
+        <td> {{ display.doj }} </td>
+        <td> {{ display.expty }} years {{ display.exptm }} months</td>
+        <td> {{ display.expiy }} years {{ display.expim }} months</td>
+        <td> {{ display.pan }} </td>
+        <td> {{ display.aadhar}} </td>
+        {% if display.resume.url is not null %}
+            <td><a href="{{ display.resume.url }}" target="_blank">View</a></td>
+        {% endif %}
+        {% if display.apletter.url is not null %}
+            <td><a href="{{ display.apletter.url }}" target="_blank">View</a></td>
+        {% endif %}
+        {% if display.edbe.url is not null %}
+            <td><a href="{{ display.edbe.url }}" target="_blank">View</a></td>
+        {% endif %}
+        {% if display.edme.url is not null %}
+            <td><a href="{{ display.edme.url }}" target="_blank">View</a></td>
+        {% endif %}
+        {% if display.edphd.url is not null %}
+            <td><a href="{{ display.edphd.url }}" target="_blank">View</a></td>
+            {% else %}
+            <td><b>No Data</b></td>
+        {% endif %}
+        {% if display.panproof.url is not null %}
+            <td><a href="{{ display.panproof.url }}" target="_blank">View</a></td>
+        {% endif %}
+        {% if display.aadharproof.url is not null %}
+            <td><a href="{{ display.aadharproof.url }}" target="_blank">View</a></td>
+        {% endif %}
+        
+        
+        
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

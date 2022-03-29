@@ -1,0 +1,20 @@
+td{
+    
+    text-align: justify;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    height: 40px;
+    
+    vertical-align: middle;
+    padding: 7px 15px;
+}
+
+table{
+ 
+    width: 45%;
+    
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    
+}

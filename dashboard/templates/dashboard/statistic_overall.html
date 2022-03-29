@@ -1,0 +1,126 @@
+
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Statistics {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/stat.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+    <form  method="POST">
+    {% csrf_token %} 
+    <div class="container ">
+    <center>
+    <label><h5><mark class="bg-warning">Select the Academic Year:</mark></label>
+    
+    <select name="years">
+        <option value="2020-2021">2020-2021</option>
+        <option value="2021-2022">2021-2022</option>
+        <option value="2022-2023">2022-2023</option>
+        <option value="2023-2024">2023-2024</option>
+        <option value="2024-2025">2024-2025</option>
+    </select>
+    </h5>
+ 
+    <button class="btn btn-secondary border btn-outline-dark btn-lg" type="Submit">Search</button>
+    </center>
+    </div>
+
+
+<table class="table">   
+    <tr>   
+    <th>Department/Events </th>
+    {% for d in departm %}    
+        <th>  {{ d }} </th>
+    {% endfor %}               
+    </tr>
+
+    <tr>
+    <th> STTP </th>   
+    {% for key,value in sttps.items %}           
+        <td> {{ value }} </td>           
+    {% endfor %}   
+    </tr>
+
+    <tr>
+    <th> FDP </th>
+    {% for key,value in fdps.items %}
+        <td> {{ value }} </td>
+    {% endfor %}
+    </tr>
+
+    <th> Faculty Orientation Program </th>
+    {% for key,value in fops.items %}
+        <td> {{ value }} </td>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+    <th> Webinar </th>
+    {% for key,value in webinars.items %}
+        <td> {{ value }} </td>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+    <th> NPTEL </th>
+    {% for key,value in nptels.items %}
+        <td> {{ value }} </td>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+    <th> Udemy </th>
+    {% for key,value in udemys.items %}
+        <td> {{ value }} </td>       
+    {% endfor %}
+    </tr>
+    
+    <th> Coursera </th>
+    {% for key,value in courseras.items %}
+        <td> {{ value }} </td>     
+    {% endfor %}
+    </tr>
+    
+    <th> Other </th>
+    {% for key,value in others.items %}
+        <td> {{ value }} </td>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+    <th class="bg-danger"> Ongoing </th>
+    {% for key,value in ongoings.items %}
+        <th class="bg-danger"> {{ value }} </th>
+    {% endfor %}
+    </tr>
+    
+    <th class="bg-success"> Completed </th>
+    {% for key,value in completeds.items %}
+        <th class="bg-success"> {{ value }} </th>
+    {% endfor %}
+    </tr>
+    
+    <tr>
+    <th class="bg-info"> Total </th>
+    {% for key,value in totals.items %}
+        <th class="bg-info"> {{ value }} </th>
+    {% endfor %}
+    </tr>
+             
+</table>
+
+</form>
+
+{% endblock %}
+</body>
+</html>

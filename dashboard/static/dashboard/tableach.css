@@ -1,0 +1,29 @@
+
+.pic{
+    height:100%;
+    width:100%;
+}
+table{
+    max-width: 96%;
+    text-align: center;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+}
+th,td{
+    text-align: center;
+    
+    border: 2px solid black;
+      
+}
+
+th{
+    background-color: MediumSeaGreen;
+}
+
+h5{
+    
+    text-align: center;
+}
+

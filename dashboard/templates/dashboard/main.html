@@ -1,0 +1,144 @@
+{% extends 'dashboard/basenav.html' %}  
+{% load static %}
+<!DOCTYPE html>
+<head>
+<title> {% block title %} Home Page {% endblock %}</title>
+{% block stylesheet %}
+<link href="{% static 'dashboard/home.css' %}" rel="stylesheet" />
+
+{% endblock %}
+
+
+</head> 
+<body>
+{% block body %}
+<div class="container-fluid mb-0 mt-0">
+<div class="row no-pad align-self-center">
+	<div class="col-lg-2 text-center">
+			<img class="sjcem" src="/media/svkm1.png" alt="college logo" ></img>
+	</div>
+	<div class="col-lg-8 text-center"> 
+		<h6> Shri Vile Parle Kelvani Mandal's </h6>
+		<h1>D.J Sanghvi College of Engineering</h1> 
+        <h6> (Autonomous College Affiliated to the University of Mumbai)</h6>
+        <h6> NAAC Accredited with "A" Grade (CGPA:3.18) </h6>
+		
+	</div>
+    <div class="col-lg-2 text-center">  
+	    <img class="aldel" src="/media/dj.png" alt="logo" ></img>
+		
+	</div>
+</div>
+</div>
+{% for group_for in request.user.groups.all %}
+    <!-- for teachers-->
+    {% if group_for.name == 'teachers' %}
+        <hr class="line">       
+            <center>
+              
+            {% for bday in bday %}
+
+                {% if bday.dob.day == cday %}
+                    {% if bday.dob.month == cmonth %}
+					<!--         --> 
+					<div>
+                        <h2>HAPPY BIRTHDAY</h2> 
+                        <h2>{{ user.profile.sal }} {{ bday.faculty.first_name }} {{ bday.faculty.last_name }}</h2>  
+                        <img id="back" src="/media/hp.gif"></img>
+                        {% if bday.photo %}                       
+                            <img id="hp" src="{{ bday.photo.url }}"></img>           
+                        {% endif %}
+                    </div> 
+                    
+                    {% endif %}
+                {% else %}
+                    <div id="trial" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="false">
+            
+                        <div class="carousel-inner">
+                        {% for n in img %}
+                            {% if n.is_active %}                
+                                <div class="carousel-item active">
+                                <img src="{{n.image.url}}" class="d-block img-responsive">
+                                </div>
+                            {% else %}    
+                            <div class="carousel-item">
+                            <img src="{{n.image.url}}" class="d-block img-responsive">
+                            </div>
+                    
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </center>     
+                        
+                     
+            
+
+    <!-- for hod --  >
+    {% elif group_for.name == 'hod' %}
+        <hr class="line">       
+            <center>
+              
+            {% for bday in bday %}
+
+                {% if bday.dob.day == cday %}
+                    {% if bday.dob.month == cmonth %}
+                    <div>
+                        <h2>HAPPY BIRTHDAY</h2> 
+                        <h2>{{ user.profile.sal }} {{ bday.faculty.first_name }} {{ bday.faculty.last_name }}</h2>  
+                        <img id="back" src="/media/hp.gif"></img>
+                        {% if bday.photo %}                       
+                            <img id="hp" src="{{ bday.photo.url }}"></img>           
+                        {% endif %}
+                    </div> 
+                    
+                    {% endif %}
+                {% else %}
+                    <div id="trial" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="false">
+            
+                        <div class="carousel-inner">
+                        {% for n in img %}
+                            {% if n.is_active %}                
+                                <div class="carousel-item active">
+                                <img src="{{n.image.url}}" class="d-block img-responsive">
+                                </div>
+                            {% else %}    
+                            <div class="carousel-item">
+                            <img src="{{n.image.url}}" class="d-block img-responsive">
+                            </div>
+                    
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </center>   
+          
+
+
+        <!-- for admin-->
+
+
+    {% endif %}
+
+{% endfor %}
+
+{% endblock %}
+
+
+
+{% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">LOGOUT</a>
+{% else %}
+    <a href="{% url 'login' %}">LOGIN</a>
+
+{% endif %}
+<!-- LOGIC END FOR ACCESS TO DIFFERENT USERS -->
+
+</body>
+</html>

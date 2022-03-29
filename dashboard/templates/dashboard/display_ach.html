@@ -1,0 +1,53 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Faculty Name </th>
+        <th> Department </th>
+        <th> Achievement Displayed on </th>
+        <th> Delete </th>
+        
+    </tr>
+
+    {% for dis_ach in dis_ach %}
+    <tr>
+        
+        <td> {{ dis_ach.faculty_name }} </td>
+        <td> {{ dis_ach.department }} </td>
+        <td> {{ dis_ach.date_uploaded }} </td>
+        <td class="table-danger"><b><a href="{% url 'dashboard:delete_ach' dis_ach.id %}"> Delete </a></b></td>
+     
+        
+        
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,84 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display All Profile{% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/profile.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+<table class="table">
+{% for display in profile %}
+<tr>
+<td colspan="2">
+{% if display.photo %}
+    <img class="profilepic" src="{{ display.photo.url }}"></img>
+{% endif %} <br>
+<b>{{ user.profile.sal }} {{ display.faculty.first_name }} {{ display.faculty.last_name }} <br>
+{{ display.designation }}
+</b>
+</td>
+</tr>
+
+<tr>
+<td><b>Date of Joining:</b> {{ display.doj }}</td>
+<td><b>Appointment Letter:</b> 
+{% if display.apletter.url is not null %}
+    <a href="{{ display.apletter.url }}" target="_blank">View</a>
+{% endif %}
+</td>
+</tr>
+
+<tr>
+<td><b>Teaching Experience:</b> {{ display.expty }} years {{ display.exptm }} months</td>
+<td><b>Industry Experience:</b> {{ display.expiy }} years {{ display.expim }} months</td>
+</tr>
+
+<tr>
+<td><b>PAN Card Number:</b> {{ display.pan }}</td>
+<td><b>PAN Card Proof:</b> {% if display.panproof.url is not null %}<a href="{{ display.panproof.url }}" target="_blank">View</a>{% endif %} </td>
+</tr>
+
+<tr>
+<td><b>Aadhar Card Number:</b> {{ display.pan }}</td>
+<td><b>Aadhar Card Proof:</b> {% if display.aadharproof.url is not null %}<a href="{{ display.aadharproof.url }}" target="_blank">View</a>{% endif %} </td>
+</tr>
+
+<tr>
+<td><b>BE Proof:</b> {% if display.edbe.url is not null %}<a href="{{ display.edbe.url }}" target="_blank">View</a>{% endif %}</td>
+<td><b>ME Proof:</b> {% if display.edme.url is not null %}<a href="{{ display.edme.url }}" target="_blank">View</a>{% endif %}</td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Phd Proof: </b> {% if display.edphd.url is not null %}<a href="{{ display.edphd.url }}" target="_blank">View</a>{% else %}<b>No Data</b>{% endif %}</td>
+<td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Resume:</b> {% if display.resume.url is not null %}<a href="{{ display.resume.url }}" target="_blank">View</a>{% endif %}</td>
+<td>
+</tr>
+
+<tr>
+<td colspan="2"><b><a href="{% url 'dashboard:updatemyprofile' display.id %}"> Update </a></b></td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

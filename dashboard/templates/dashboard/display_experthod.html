@@ -1,0 +1,87 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            <form method="GET">
+            {% csrf_token %} 
+            <center>
+
+            {{filterexperth.form}}
+            </center>
+        </div>
+    </div>
+</div>
+<center><button class="btn btn-info" type="Submit">Search</button></center><br>
+ 
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Faculty Name </th>
+        <th> Type </th>
+        <th> Name of Resource Person </th>
+        <th> Subject Name </th>       
+        <th> Topic </th>
+        <th> Year </th>
+        <th> Date of Expert Lecture </th>
+        <th> Total Students Present </th>
+        <th> Attendance Record (PDF Only) </th>
+        <th> Proof </th>        
+    </tr>
+
+    {% for expert in experth %}
+    <tr>
+        
+        <td> {{ expert.academic_years }} </td>
+        <td> {{ expert.faculty.first_name }} {{ expert.faculty.last_name }} </td>
+        <td> {{ expert.typeas }} </td>
+        <td> {{ expert.resource_person }} </td>
+        <td> {{ expert.subject }} </td>
+        <td> {{ expert.topic }} </td>
+        <td> {{ expert.years }} </td>
+        <td> {{ expert.date }} </td>
+        <td> {{ expert.present }} </td> 
+               
+        {% if expert.attendance.url is not null %}
+            <td><a href="{{ expert.attendance.url }}" target="_blank">View</a></td>
+        {% endif %}
+
+        {% if expert.proof.url is not null %}
+            <td><a href="{{ expert.proof.url }}" target="_blank">View</a></td>
+        {% endif %}
+         
+        
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

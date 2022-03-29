@@ -1,0 +1,300 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tablepub.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/logic.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+<center>
+<label><h5>Select the Publication Type:</label>
+<select id="dynamictable">
+    <option value="" selected>-------</option>
+    <option value="conference">Conference Details</option>
+    <option value="journal">Journal Details</option>
+    <option value="bookchapter">Book Chapter Details</option>
+    <option value="book">Book Details</option>
+    <option value="patent">Patent Details</option>
+    <option value="copyright">Copyright Details</option>
+</select>
+</center>
+<div id="mytable">
+    <div id="conference">
+        <h5 class="bg-warning">Conference Details</h5>
+        <table class="table table-hover ">
+            <tr>       
+                <th> Academic Year </th>
+                <th> Title </th>
+                <th> Conference Name </th>
+                <th> Author Names </th>
+                <th> Publication Year </th>
+                <th> DOI </th>
+                <th> ISSN </th>
+                <th> Publisher </th>
+                <th> Scopus Index</th>
+                <th> View Certificate</th>
+                <th> Update </th>
+                <th> Delete </th>
+                             
+            </tr>
+        
+            {% for con in con %}
+            <tr>               
+                <td> {{ con.academic_years }} </td>
+                <td> {{ con.title }} </td>
+                <td> {{ con.cname }} </td>
+                <td> {{ con.authname }} </td>
+                <td> {{ con.pubyears }} </td>
+                <td> {{ con.doi }} </td>
+                <td> {{ con.issn }} </td>
+                <td> {{ con.publisher }} </td>
+                {% if con.scopus == "Yes" %}
+                    <td> {{ con.scopus }} - {{ con.scopus_value}} </td>
+                {% else %}
+                    <td> {{ con.scopus }} </td>
+                {% endif %}
+                {% if con.certificate.url is not null %}
+                    <td><a href="{{ con.certificate.url }}" target="_blank">View</a></td>
+                {% else %}
+                <td class="table-danger">No Data</td>        
+                {% endif %}                
+                <td><a href="{% url 'publications:updatec' con.id %}"> Update </a></td>  
+                <td class="table-danger"><b><a href="{% url 'publications:deletec' con.id %}"> Delete </a></b></td>      
+                
+            </tr>        
+            {% endfor %}
+        </table>
+
+    </div>
+    <div id="journal">
+        <h5 class="bg-warning">Journal Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Academic Year </th>
+            <th> Title </th>
+            <th> Journal Name </th>            
+            <th> Page Number </th>
+            <th> Publication Years </th>
+            <th> DOI </th>
+            <th> Publisher </th>
+            <th> Scopus Index</th>
+            <th> View Certificate</th>
+            <th> Update </th>
+            <th> Delete </th>
+                    
+        </tr>
+
+        {% for jor in jor %}
+        <tr>
+            <td> {{ jor.academic_years }} </td>
+            <td> {{ jor.title }} </td>
+            <td> {{ jor.jname }} </td>            
+            <td> {{ jor.pageno }} </td>
+            <td> {{ jor.pubyears }} </td>
+            <td> {{ jor.doi }} </td>
+            <td> {{ jor.publisher }} </td>
+            {% if  jor.scopus == "Yes" %}
+                <td> {{  jor.scopus }} - {{  jor.scopus_value}} </td>
+            {% else %}
+                <td> {{  jor.scopus }} </td>
+            {% endif %}
+            {% if jor.certificate.url is not null %}
+                <td><a href="{{ jor.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+            <td class="table-danger">No Data</td>
+            {% endif %}            
+            <td><a href="{% url 'publications:updatej' jor.id %}"> Update </a></td>
+            <td class="table-danger"><b><a href="{% url 'publications:deletej' jor.id %}"> Delete </a></b></td>
+                  
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <div id="bookchapter">
+        <h5 class="bg-warning">Book Chapter Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Academic Year </th>
+            <th> Chapter Title </th>
+            <th> Book Name </th>
+            <th> Editors Name </th>
+            <th> Volume Number </th>
+            <th> Issue Number </th>
+            <th> Page(s) </th>
+            <th> Year of publication </th>
+            <th> DOI </th>
+            <th> Publisher </th>
+            <th> View Certificate</th>
+            <th> Update </th>
+            <th> Delete </th>
+                   
+        </tr>
+
+        {% for bookc in bookc %}
+        <tr>      
+            <td> {{ bookc.academic_years }} </td>
+            <td> {{ bookc.chapter_title }} </td>
+            <td> {{ bookc.book_name }} </td>
+            <td> {{ bookc.editors }} </td>
+            <td> {{ bookc.volno }} </td>
+            <td> {{ bookc.issueno }} </td>
+            <td> {{ bookc.pageno }} </td>
+            <td> {{ bookc.pubyears }} </td>
+            <td> {{ bookc.doi }} </td>
+            <td> {{ bookc.publisher }} </td>
+            {% if bookc.certificate.url is not null %}
+                <td><a href="{{ bookc.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td class="table-danger">No Data</td>
+            {% endif %}            
+            <td><a href="{% url 'publications:updatebc' bookc.id %}"> Update </a></td>
+            <td class="table-danger"><b><a href="{% url 'publications:deletebc' bookc.id %}"> Delete </a></b></td>
+            
+        </tr>
+        {% endfor %}    
+        </table>
+    </div>
+    <div id="book">
+        <h5 class="bg-warning">Book Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Academic Year </th>
+            <th> Book Name </th>
+            <th> Name of Authors </th>
+            <th> Publisher </th>
+            <th> ISBN </th>
+            <th> DOI </th>
+            <th> Year of publication </th>
+            <th> View Certificate</th>
+            <th> Update </th>
+            <th> Delete </th>
+            
+        </tr>
+
+        {% for book in book %}
+        <tr>
+            <td> {{ book.academic_years }} </td>
+            <td> {{ book.book_name }} </td>
+            <td> {{ book.authname }} </td>
+            <td> {{ book.publisher }} </td>
+            <td> {{ book.isbn }} </td>
+            <td> {{ book.doi }} </td>
+            <td> {{ book.pubyears }} </td>
+            {% if book.certificate.url is not null %}
+                <td><a href="{{ book.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td class="table-danger">No Data</td>
+            {% endif %}
+            <td><a href="{% url 'publications:updateb' book.id %}"> Update </a></td>
+            <td class="table-danger"><b><a href="{% url 'publications:deleteb' book.id %}"> Delete </a></b></td>
+                 
+        </tr>
+        {% endfor %}    
+        </table>
+    </div>
+
+    <div id="patent">
+        <h5 class="bg-warning">Patent Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Academic Year </th>
+            <th> Patent Title </th>
+            <th> Patent type </th>
+            <th> Patent Number </th>
+            <th> Grant Year </th>
+            <th> Grant Term </th>
+            <th> View Certificate</th>
+            <th> Update </th>
+            <th> Delete </th>
+            
+        </tr>
+
+        {% for patent in patent %}
+        <tr>
+            <td> {{ patent.academic_years }} </td>
+            <td> {{ patent.title }} </td>
+            <td> {{ patent.ptype }} </td>
+            <td> {{ patent.patentno }} </td>
+            <td> {{ patent.grantyears }} </td>
+            <td> {{ patent.term }} </td>
+            {% if patent.certificate.url is not null %}
+                <td><a href="{{ patent.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td class="table-danger">No Data</td>
+            {% endif %}
+            <td><a href="{% url 'publications:updatep' patent.id %}"> Update </a></td>
+            <td class="table-danger"><b><a href="{% url 'publications:deletep' patent.id %}"> Delete </a></b></td>
+             
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <div id="copyright">
+        <h5 class="bg-warning">Copyright Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Academic Year </th>
+            <th> Copyright Title </th>
+            <th> Granted On </th>
+            <th> Registeration Number </th>
+            <th> View Certificate </th>
+            <th> Country of Grant </th>
+            <th> Update </th>
+            <th> Delete </th>
+                
+        </tr>
+
+        {% for copy in copy %}
+        <tr>
+            <td> {{ copy.academic_years }} </td>
+            <td> {{ copy.title }} </td>
+            <td> {{ copy.grantdate }} </td>
+            <td> {{ copy.regno }} </td>
+            <td> {{ copy.grantcountry }} </td>
+            {% if copy.certificate.url is not null %}
+                <td><a href="{{ copy.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td class="table-danger">No Data</td>
+            {% endif %}
+            <td><a href="{% url 'publications:updateco' copy.id %}"> Update </a></td>
+            <td class="table-danger"><b><a href="{% url 'publications:deleteco' copy.id %}"> Delete </a></b></td>
+             
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% block js_block %}
+<script type = "text/javascript">
+jQuery(function () 
+{
+    $('#dynamictable').change(function () 
+    {
+        $('#mytable > div').css('display', 'none');
+        if (this.value) 
+        {
+            $('#' + this.value).css('display', 'block');
+        }
+    }).change()
+})
+</script>
+
+{% endblock %}
+
+{% endblock %}
+
+
+</body>
+</html>

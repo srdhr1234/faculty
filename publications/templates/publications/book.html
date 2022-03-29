@@ -1,0 +1,41 @@
+
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Book {% endblock %} </title> 
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/add.css' %}">
+        
+    {% endblock %}
+    
+    
+
+</head> 
+<body>
+{% block body %}
+<div class="table-responsive">
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %} 
+<center><h5 class="bg-warning">Book Form</h5></center>
+<table class="table table-hover">
+    {% for form in form %}
+    <tr>
+        <td width="20%"><h4>{{ form.label }}</h4></td>
+        <td><h5>{{ form }}</h5></td>
+            
+    </tr>    
+    {% endfor %}
+</table>
+
+<center><button class="btn btn-primary border btn-outline-dark btn-lg" type ="Submit">Save</button></center>
+
+</form>
+</div>
+{% endblock %}
+
+</body>
+</html>

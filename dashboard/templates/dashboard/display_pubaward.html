@@ -1,0 +1,58 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        
+        <th> Publication Type </th>
+        <th> Title of Publication </th>
+        <th> Proof </th>
+     
+        
+    </tr>
+
+    {% for pa in pa %}
+    <tr>
+        
+        <td> {{ pa.academic_years }} </td>
+        <td> {{ pa.type_pub }} </td> 
+        <td> {{ pa.title }} </td> 
+
+        {% if pa.proof.url is not null %}
+            <td><a href="{{ pa.proof.url }}" target="_blank">View</a></td>
+        {% endif %}
+               
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

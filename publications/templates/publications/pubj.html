@@ -1,0 +1,122 @@
+
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Journal Publication {% endblock %} </title> 
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/add.css' %}">
+        
+    {% endblock %}
+    
+    
+
+</head> 
+<body>
+{% block body %}
+<div class="table-responsive">
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %} 
+<center><h5 class="bg-warning">Journal Form</h5></center>
+<table class="table table-hover">
+    {{ form.non_field_errors }}
+    <tr>
+        {{ form.academic_years.errors }}       
+        <td width="20%"><h4><label for="{{ form.academic_years.id_for_label }}">Academic Year</label></h4></td>
+        <td><h4>{{ form.academic_years }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.title.errors }}
+        <td width="20%"><h4><label for="{{ form.title.id_for_label }}">Paper Title</label></h4></td>
+        <td><h4>{{ form.title }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.jname.errors }}
+        <td width="20%"><h4><label for="{{ form.jname.id_for_label }}">Journal Name</label></h4></td>
+        <td><h4>{{ form.jname }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.authname.errors }}
+        <td width="20%"><h4><label for="{{ form.authname.id_for_label }}">Author Names</label></h4></td>
+        <td><h4>{{ form.authname }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.indexs.errors }}
+        <td width="20%"><h4><label for="{{ form.indexs.id_for_label }}">Indexing</label></h4></td>
+        <td><h4>{{ form.indexs }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.ctypes.errors }}
+        <td width="20%"><h4><label for="{{ form.ctypes.id_for_label }}">Journal Type</label></h4></td>
+        <td><h4>{{ form.ctypes }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.scopus.errors }}
+        <td width="20%"><h4><label for="{{ form.scopus.id_for_label }}">Is Scopus Index?</label></h4></td>
+        <td><h4>{{ form.scopus }}</h4></td>   
+        <td><h4>{{ form.scopus_value }}</h4></td>         
+    </tr>
+
+    <tr>
+        {{ form.volno.errors }}
+        <td width="20%"><h4><label for="{{ form.volno.id_for_label }}">Volume Number</label></h4></td>
+        <td><h4>{{ form.volno }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.issueno.errors }}
+        <td width="20%"><h4><label for="{{ form.issueno.id_for_label }}">Issue Number</label></h4></td>
+        <td><h4>{{ form.issueno }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.pageno.errors }}
+        <td width="20%"><h4><label for="{{ form.pageno.id_for_label }}">Page(s)</label></h4></td>
+        <td><h4>{{ form.pageno }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.pubyears.errors }}
+        <td width="20%"><h4><label for="{{ form.pubyears.id_for_label }}">Page(s)</label></h4></td>
+        <td><h4>{{ form.pubyears }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.doi.errors }}
+        <td width="20%"><h4><label for="{{ form.doi.id_for_label }}">DOI</label></h4></td>
+        <td><h4>{{ form.doi }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.publisher.errors }}
+        <td width="20%"><h4><label for="{{ form.publisher.id_for_label }}">Publisher</label></h4></td>
+        <td><h4>{{ form.publisher }}</h4></td>           
+    </tr>
+
+    <tr>
+        {{ form.certificate.errors }}
+        <td width="20%"><h4><label for="{{ form.certificate.id_for_label }}">Certificate (only PDF)</label></h4></td>
+        <td><h4>{{ form.certificate }}</h4></td>           
+    </tr>
+</table>
+
+<center><button class="btn btn-primary border btn-outline-dark btn-lg" type ="Submit">Save</button></center>
+
+</form>
+</div>
+{% block js_block %}
+<script src="{% static 'js/pubj.js' %}"></script> 
+{% endblock %}
+{% endblock %}
+
+</body>
+</html>

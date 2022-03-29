@@ -1,0 +1,61 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+    {% block body %}
+  
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Consultancy Type </th>
+        <th> Organization Details </th>
+        <th> Project Details </th>
+        <th> Start Date </th>
+        <th> End Date </th>
+        <th> Duration </th>
+        <th> Proof </th>      
+    </tr>
+
+    {% for con in con %}
+    <tr>
+        
+        <td> {{ con.academic_years }} </td> 
+        <td> {{ con.type_con }} </td> 
+        <td> {{ con.orgdet }} </td> 
+        <td> {{ con.prodet }} </td> 
+        <td> {{ con.start_date }} </td> 
+        <td> {{ con.end_date }} </td> 
+        <td> {{ con.durations }} </td>   
+        {% if con.proof.url is not null %}
+            <td><a href="{{ con.proof.url }}" target="_blank">View</a></td>
+        {% endif %}     
+        
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

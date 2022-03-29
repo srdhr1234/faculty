@@ -1,0 +1,64 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Competition Type </th>
+        <th> Event Type </th>
+        <th> Awards Type </th>
+        <th> Proof </th>
+     
+        
+    </tr>
+
+    {% for compe in compe %}
+    <tr>
+        
+        <td> {{ compe.academic_years }} </td> 
+        <td> {{ compe.cotype }} </td>
+
+        {% if compe.event_type == "Others" %}
+            <td> {{ compe.others }} </td>
+        {% else %}
+            <td> {{ compe.event_type }} </td>
+        {% endif %}
+
+        <td> {{ compe.award }} </td>
+        {% if compe.proof.url is not null %}
+            <td><a href="{{ compe.proof.url }}" target="_blank">View</a></td>
+        {% endif %}
+               
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,95 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name = "viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %} Display All {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+</head> 
+<body>
+{% block body %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            <form method="GET">
+            {% csrf_token %} 
+
+            {{myFilter1.form}}
+        </div>
+    </div>
+</div>
+
+<center><button class="btn btn-info" type="Submit">Search</button></center><br>
+<center>
+<button class="btn btn-success" type="Submit" formaction="{% url 'dashboard:excel' %}">Export to Excel</button>
+
+<button class="btn btn-info" type="Submit" formaction="{% url 'dashboard:pdf' %}">Export to PDF</button>
+</center>
+
+<div class="container col">
+ 
+<table class="table table-hover ">
+    <tr>
+        <th> Academic Year </th>
+        <th> Faculty Name </th>
+        
+        <th> Type </th>
+        <th> Mode </th>
+        <th> Event Description </th>
+        <th> Title </th>
+        <th> College Name </th>
+        <th> Start Date </th>
+        <th> End Date </th>
+        <th> Duration of Course </th>
+        <th> Data Entered </th>
+        <th> Certificate Uploaded </th>
+        <th> Delete </th>
+        
+    </tr>
+
+    {% for all in dis_all %}
+    <tr>
+        <td> {{ all.academic_years }} </td>
+        <td> {{ all.faculty.first_name }} {{ all.faculty.last_name }} </td>
+       
+        <td> {{ all.typeas }} </td>
+        <td> {{ all.modes }} </td>
+        
+        {% if all.events == "Others" %}
+            <td> {{ all.others }} </td>
+        {% else %}
+            <td> {{ all.events }} </td>
+        {% endif %}  
+
+        
+        <td> {{ all.topic }} </td>
+        <td> {{ all.college_name }} </td>
+        <td> {{ all.start_date }} </td>
+        <td> {{ all.end_date }} </td>
+        
+        <td> {{ all.durations }} </td>
+        <td> {{ all.date_created }} </td>
+   
+        {% if all.certificate.url is not null %}
+            <td>YES</td>
+        {% else %}
+            <td class="table-danger"><b>NO</b></td>
+        {% endif %} 
+        <td class="table-danger"><b><a href="{% url 'dashboard:delete_data' all.id %}"> Delete </a></b></td>    
+    </tr>
+
+    {% endfor %}
+</table>
+
+ 
+</form>
+</div>
+
+{% endblock %}
+
+</body>
+</html>

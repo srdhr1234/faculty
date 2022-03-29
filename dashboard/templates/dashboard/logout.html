@@ -1,0 +1,25 @@
+
+{% load static %}
+<!DOCTYPE html>
+<head>
+<title> Logout </title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="{% static 'dashboard/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/logout.css' %}">
+</head> 
+<body>
+<div class="container bg-primary">
+<h1> 
+Thank You!
+<br> 
+You have successfully Logged out 
+</h1>
+
+
+<h3><a class="btn btn-secondary border btn-outline-dark btn-lg" href="{% url 'login' %}">Login Again</a></h3>
+
+</div>
+
+
+</body>
+</html>

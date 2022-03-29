@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Faculty Achievement {% endblock %}</title>
+    {% block stylesheet %}
+        
+
+    {% endblock %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'dashboard/bootstrap.min.css' %}">
+    <!-- jQuery library -->
+    <script src="{% static 'js/jquery.min.js' %}"></script> 
+    
+    <!-- Popper JS -->
+    <script src="{% static 'js/popper.min.js' %}"></script> 
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>  
+    
+    <style>
+    body {
+        background-color: gainsboro;
+        }
+
+    .nav-link {
+        color: white !important;
+        font-size: large;
+        }
+    </style>
+    
+
+    
+</head> 
+<body>
+    {% for group_for in request.user.groups.all %}
+    
+    <!--hod list-->
+    {% if group_for.name == 'hod' %} 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid p-3">
+        <div class="navbar-brand order-last">
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Welcome {{ user.profile.sal }} {{ user.first_name }} {{ user.last_name }}</a>                   
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:addmyprofile' %}">My Profile</a></li>
+                        
+                        <li><a href="{% url 'dashboard:viewmyprofile'%}"> View/Update My Profile </a></li>
+                        
+                        <li><a href="{% url 'dashboard:viewprofile' %}">View All Profile</a></li>
+                        <li><a href="{% url 'dashboard:upload_ach' %}">Main Page Images</a></li>
+                        <li><a href="{% url 'dashboard:display_ach' %}">Delete Main Page Images</a></li>
+                        <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                    </ul>
+            </div>
+        </div>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" data-display="static" aria-haspopup="true" aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    
+    <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'dashboard:main' %}">Home </a> </li>
+                <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Add Data</a>
+                    
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:add' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:addcompe' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'dashboard:addresearchgrant' %}">Research Grant</a></li>
+                        <li><a href="{% url 'dashboard:addacademicrr' %}">Academic Roles & Responsibilities</a></li>
+                        <li><a href="{% url 'dashboard:addpubaward' %}">Publication Awards</a></li>
+                        <li><a href="{% url 'dashboard:addconsultancy' %}">Consultancy</a></li>
+                        <li><a href="{% url 'dashboard:addexpert' %}">Expert Lecture</a></li>
+                        
+                        <li class="dropdown-submenu">
+                            <a class="test" href="#">Publication<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a href="{% url 'publications:pubc' %}">Conference Publication</a></li>
+                                <li><a href="{% url 'publications:pubj' %}">Journal Publication</a></li>
+                                <li><a href="{% url 'publications:bookchapter' %}">Book Chapter</a></li>
+                                <li><a href="{% url 'publications:book' %}">Book</a></li>
+                                <li><a href="{% url 'publications:patent' %}">Patent</a></li>
+                                <li><a href="{% url 'publications:copyright' %}">Copyright</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>              
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Display Data</a>
+                    
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:display' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:displaycompe' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'dashboard:displayresearchgrant' %}">Research Grant</a></li>
+                        <li><a href="{% url 'dashboard:displayacademicrr' %}">Academic Roles & Responsibilities</a></li>
+                        <li><a href="{% url 'dashboard:displaypubaward' %}">Publication Awards</a></li>
+                        <li><a href="{% url 'dashboard:displayconsultancy' %}">Consultancy</a></li>
+                        <li><a href="{% url 'dashboard:displayexpert' %}">Expert Lecture</a></li>
+                        <li><a href="{% url 'publications:displayp' %}">Faculty Publications</a></li>
+                        
+                    </ul>
+            </div>
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Display All Data</a>          
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:displayall_hod' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:displaycompeh' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'dashboard:displayrghod' %}">Research Grant</a></li>
+                        <li><a href="{% url 'dashboard:displayacademicrhod' %}">Academic Roles & Responsibilities</a></li>
+                        <li><a href="{% url 'dashboard:displaypubawardhod' %}">Publication Awards</a></li>
+                        <li><a href="{% url 'dashboard:displaypubawardhod' %}">Consultancy</a></li>
+                        <li><a href="{% url 'dashboard:displayexperthod' %}">Expert Lecture</a></li>
+                        <li><a href="{% url 'publications:displayAllHod' %}">Publication</a></li>
+                    </ul>
+            </div>
+    
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Statistics</a>          
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:statistic_hod' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:displaycompeh' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'publications:statisticpub_hod' %}">Publication</a></li>
+                    </ul>
+            </div>
+            
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> Logout </a></li>
+        </ul>
+    </div>   
+    </div>
+    </nav>
+    
+    <!--teachers list-->
+    {% elif group_for.name == 'teachers' %}
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid p-3">
+        <div class="navbar-brand order-last">
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Welcome {{ user.profile.sal }} {{ user.first_name }} {{ user.last_name }}</a>                   
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard:addmyprofile' %}">My Profile</a></li>
+                        
+                        <li><a href="{% url 'dashboard:viewmyprofile'%}"> View/Update My Profile </a></li>
+                        <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                    </ul>
+            </div>
+        </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav" data-display="static" aria-haspopup="true" aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    
+    <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'dashboard:main' %}">Home </a> </li>
+                <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Add Data</a>
+                    
+                    <ul class="dropdown-menu">
+                        
+                        <li><a href="{% url 'dashboard:add' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:addcompe' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'dashboard:addresearchgrant' %}">Research Grant</a></li>
+                        <li><a href="{% url 'dashboard:addacademicrr' %}">Academic Roles & Responsibilities</a></li>
+                        <li><a href="{% url 'dashboard:addpubaward' %}">Publication Awards</a></li>
+                        <li><a href="{% url 'dashboard:addconsultancy' %}">Consultancy</a></li>
+                        <li><a href="{% url 'dashboard:addexpert' %}">Expert Lecture</a></li>
+                        
+                        <li class="dropdown-submenu">
+                            <a class="test" href="#">Publication<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a href="{% url 'publications:pubc' %}">Conference Publication</a></li>
+                                <li><a href="{% url 'publications:pubj' %}">Journal Publication</a></li>
+                                <li><a href="{% url 'publications:bookchapter' %}">Book Chapter</a></li>
+                                <li><a href="{% url 'publications:book' %}">Book</a></li>
+                                <li><a href="{% url 'publications:patent' %}">Patent</a></li>
+                                <li><a href="{% url 'publications:copyright' %}">Copyright</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>              
+            <div class="dropdown">
+                    <a class="nav-link dropdown toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Display Data</a>
+                    
+                    <ul class="dropdown-menu">
+                        
+                        <li><a href="{% url 'dashboard:display' %}">Faculty Achievement</a></li>
+                        <li><a href="{% url 'dashboard:displaycompe' %}">Project Competitions</a></li>
+                        <li><a href="{% url 'dashboard:displayresearchgrant' %}">Research Grant</a></li>
+                        <li><a href="{% url 'dashboard:displayacademicrr' %}">Academic Roles & Responsibilities</a></li>
+                        <li><a href="{% url 'dashboard:displaypubaward' %}">Publication Awards</a></li>
+                        <li><a href="{% url 'dashboard:displayconsultancy' %}">Consultancy</a></li>
+                        <li><a href="{% url 'dashboard:displayexpert' %}">Expert Lecture</a></li>
+                        
+                        <li><a href="{% url 'publications:displayp' %}">Publication</a></li>
+                        
+                    </ul>
+            </div>
+            
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"> Logout </a></li>
+        </ul>
+    </div>   
+    </div>
+    </nav>
+    
+    
+    <!--admin list-->
+    
+    </nav>
+    
+    
+    {% endif %}
+    {% endfor %}
+    
+    <script>
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+    
+    
+    </script>
+    {% block body %}
+    
+    {% endblock %}
+    
+    </body>
+    </html>

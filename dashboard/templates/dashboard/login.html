@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Login </title>
+    <link rel="stylesheet" href="{% static 'dashboard/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/login.css' %}">
+
+</head> 
+<body>
+
+<div class="container bg-primary">
+
+    {% if form.errors %}
+        <h5 class="alert alert-danger">Your username and password didn't match, please try again.</h5>
+    {% endif %}
+<form method="POST">
+{% csrf_token %}
+
+<h3>Login</h3>
+<h3>Welcome Faculties!</h3>
+<hr>
+{% for form in form %}
+<div class="control-group">
+
+    <h3><label class="control-label">{{ form.label }}</label></h3>
+    <div class="controls">
+
+        {{ form }}
+        {% if form.help_text %}
+            <p class="help-inline"><small>{{ form.help_text }}</small></p>
+        {% endif %}
+    </div>
+   
+</div>
+{% endfor %}
+<br>
+<h3><button type="submit" class="btn btn-secondary border btn-outline-dark btn-lg">Login</button></h3>
+
+<a  style="color:white;" href="{% url 'reset_password' %}">Forgot Password?</a>
+
+</form>
+</div>
+</body>
+</html>

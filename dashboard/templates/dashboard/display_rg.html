@@ -1,0 +1,56 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    {% block stylesheet %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+
+    
+<div class="container col">
+<table class="table table-hover ">
+    
+    <tr>
+        
+        <th> Academic Year </th>
+        <th> Title </th>
+        <th> Amount Sanctioned </th>
+        <th> Granting Authority </th>
+        <th> Term of Grant </th>
+     
+        
+    </tr>
+
+    {% for rg in rg %}
+    <tr>
+        
+        <td> {{ rg.academic_years }} </td> 
+        <td> {{ rg.title }} </td> 
+        <td> {{ rg.amount }} </td> 
+        <td> {{ rg.authority }} </td> 
+        <td> {{ rg.term }} </td> 
+              
+    </tr>
+
+    {% endfor %}
+</table>
+        
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
+
+
+

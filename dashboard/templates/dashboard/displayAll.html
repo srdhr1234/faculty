@@ -1,0 +1,87 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name = "viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %} Display All {% endblock %}</title>
+    {% block stylesheet %}
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tableach.css' %}">
+    {% endblock %}
+</head> 
+<body>
+{% block body %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-11">
+            <form method="GET">
+            {% csrf_token %} 
+            <h5>
+            {{myFilter.form}}
+            </h5>
+        </div>
+    </div>
+</div>
+
+<center><button class="btn btn-secondary border btn-outline-dark btn-lg" type="Submit">Search</button></center>
+
+<div class="container col">
+<table  class="table table-hover ">
+    <tr>
+        <th> Department </th>
+        <th> Faculty Name </th>
+        <th> Academic Year </th>
+        <th> Type </th>
+        <th> Event Description </th>
+        <th> Title </th>
+        <th> College Name </th>
+        <th> Start Date </th>
+        <th> End Date </th>
+        <th> Duration of Course </th>
+        <th> Data Entered </th>
+        <th> Certificate Upload Status </th>
+        
+    </tr>
+
+    {% for all in dis_all %}
+    <tr>
+        <td> {{ all.department }} </td>
+        <td> {{ all.faculty.first_name }} {{ all.faculty.last_name }} </td>
+        <td> {{ all.academic_years }} </td>
+        <td> {{ all.typeas }} </td>
+        <td> {{ all.events }} </td>
+        <td> {{ all.topic }} </td>
+        <td> {{ all.college_name }} </td>
+        <td> {{ all.start_date }} </td>
+        <td> {{ all.end_date }} </td>
+        
+        <td> {{ all.durations }} </td>
+        <td> {{ all.date_created }} </td>
+   
+        {% if all.certificate.url is not null %}
+            <td>Yes</td>
+        {% else %}
+            <td><a href="{% url 'dashboard:delete_data' all.id %}"> Delete </a></td>
+
+        {% endif %}
+
+        
+        
+        
+        
+    </tr>
+
+    {% endfor %}
+</table>
+
+
+
+   
+</form>
+
+</div>
+{% endblock %}
+
+</body>
+</html>

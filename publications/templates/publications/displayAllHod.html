@@ -1,0 +1,304 @@
+{% extends 'dashboard/basenav.html' %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} Display {% endblock %}</title>
+    
+    {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/tablepub.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/logic.css' %}">
+    {% endblock %}
+
+</head> 
+<body>
+{% block body %}
+<center>
+<label><h5>Select the Publication Type:</label>
+<select id="dynamictable">
+    <option value="" selected>-------</option>
+    <option value="conference">Conference Details</option>
+    <option value="journal">Journal Details</option>
+    <option value="bookchapter">Book Chapter Details</option>
+    <option value="book">Book Details</option>
+    <option value="patent">Patent Details</option>
+    <option value="copyright">Copyright Details</option>
+</select>
+</center>
+
+<center>
+   
+    <a href="{% url 'publications:pdfp' %}" class="btn btn-info" role="button">Download PFD</a>
+</center>
+
+<div id="mytable">
+    <div id="conference">
+        <h5 class="bg-warning">Conference Details</h5>
+        <table class="table table-hover ">
+            <tr>
+                <th> Faculty Name </th>       
+                <th> Academic Year </th>
+                <th> Title </th>
+                <th> Conference Name </th>
+                <th> Author Names </th>
+                <th> Publication Year </th>
+                <th> DOI </th>
+                <th> ISSN </th>
+                <th> Publisher </th>
+                <th> Scopus Index</th>
+                <th> View Certificate</th>
+                <th> Data Uploaded on </th>               
+            </tr>
+        
+            {% for con in con %}
+            <tr>       
+                <td> {{ con.faculty.first_name }} {{ con.faculty.last_name }} </td>        
+                <td> {{ con.academic_years }} </td>
+                <td> {{ con.title }} </td>
+                <td> {{ con.cname }} </td>
+                <td> {{ con.authname }} </td>
+                <td> {{ con.pubyears }} </td>
+                <td> {{ con.doi }} </td>
+                <td> {{ con.issn }} </td>
+                <td> {{ con.publisher }} </td>
+                {% if con.scopus == "Yes" %}
+                    <td> {{ con.scopus }} - {{ con.scopus_value}} </td>
+                {% else %}
+                    <td> {{ con.scopus }} </td>
+                {% endif %}
+                {% if con.certificate.url is not null %}
+                    <td><a href="{{ con.certificate.url }}" target="_blank">View</a></td>
+                {% else %}
+                    <td>Data Not Available</td>        
+                {% endif %}                       
+                <td> {{ con.date_created }} </td>
+            </tr>        
+            {% endfor %}
+        </table>
+
+    </div>
+    <div id="journal">
+        <h5 class="bg-warning">Journal Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Faculty Name </th>
+            <th> Academic Year </th>
+            <th> Title </th>
+            <th> Journal Name </th>            
+            <th> Page Number </th>
+            <th> Publication Years </th>
+            <th> DOI </th>
+            <th> Publisher </th>
+            <th> Scopus Index</th>
+            <th> View Certificate</th>
+            
+            <th> Data Uploaded on </th>        
+        </tr>
+
+        {% for jor in jor %}
+        <tr>
+            <td> {{ jor.faculty.first_name }} {{ jor.faculty.last_name }} </td>
+            <td> {{ jor.academic_years }} </td>
+            <td> {{ jor.title }} </td>
+            <td> {{ jor.jname }} </td>            
+            <td> {{ jor.pageno }} </td>
+            <td> {{ jor.pubyears }} </td>
+            <td> {{ jor.doi }} </td>
+            <td> {{ jor.publisher }} </td>
+            {% if  jor.scopus == "Yes" %}
+                <td> {{  jor.scopus }} - {{  jor.scopus_value}} </td>
+            {% else %}
+                <td> {{  jor.scopus }} </td>
+            {% endif %}
+            {% if jor.certificate.url is not null %}
+                <td><a href="{{ jor.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td>Data Not Available</td>
+            {% endif %}            
+            
+            <td> {{ jor.date_created }} </td>        
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <div id="bookchapter">
+        <h5 class="bg-warning">Book Chapter Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Faculty Name </th>
+            <th> Academic Year </th>
+            <th> Chapter Title </th>
+            <th> Book Name </th>
+            <th> Editors Name </th>
+            <th> Volume Number </th>
+            <th> Issue Number </th>
+            <th> Page(s) </th>
+            <th> Year of publication </th>
+            <th> DOI </th>
+            <th> Publisher </th>
+            <th> View Certificate</th>
+           
+            <th> Data Uploaded on </th>        
+        </tr>
+
+        {% for bookc in bookc %}
+        <tr>      
+            <td> {{ bookc.faculty.first_name }} {{ bookc.faculty.last_name }} </td>
+            <td> {{ bookc.academic_years }} </td>
+            <td> {{ bookc.chapter_title }} </td>
+            <td> {{ bookc.book_name }} </td>
+            <td> {{ bookc.editors }} </td>
+            <td> {{ bookc.volno }} </td>
+            <td> {{ bookc.issueno }} </td>
+            <td> {{ bookc.pageno }} </td>
+            <td> {{ bookc.pubyears }} </td>
+            <td> {{ bookc.doi }} </td>
+            <td> {{ bookc.publisher }} </td>
+            {% if bookc.certificate.url is not null %}
+                <td><a href="{{ bookc.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td>Data Not Available</td>
+            {% endif %}            
+            
+            <td> {{ bookc.date_created }} </td>
+        </tr>
+        {% endfor %}    
+        </table>
+    </div>
+    <div id="book">
+        <h5 class="bg-warning">Book Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Faculty Name </th>
+            <th> Academic Year </th>
+            <th> Book Name </th>
+            <th> Name of Authors </th>
+            <th> Publisher </th>
+            <th> ISBN </th>
+            <th> DOI </th>
+            <th> Year of publication </th>
+            <th> View Certificate</th>
+            
+            <th> Data Uploaded on </th>
+        </tr>
+
+        {% for book in book %}
+        <tr>
+            <td> {{ book.faculty.first_name }} {{ book.faculty.last_name }} </td>
+            <td> {{ book.academic_years }} </td>
+            <td> {{ book.book_name }} </td>
+            <td> {{ book.authname }} </td>
+            <td> {{ book.publisher }} </td>
+            <td> {{ book.isbn }} </td>
+            <td> {{ book.doi }} </td>
+            <td> {{ book.pubyears }} </td>
+            {% if book.certificate.url is not null %}
+                <td><a href="{{ book.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td>Data Not Available</td>
+            {% endif %}
+            
+            <td> {{ book.date_created }} </td>     
+        </tr>
+        {% endfor %}    
+        </table>
+    </div>
+
+    <div id="patent">
+        <h5 class="bg-warning">Patent Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Faculty Name </th>
+            <th> Academic Year </th>
+            <th> Patent Title </th>
+            <th> Patent type </th>
+            <th> Patent Number </th>
+            <th> Grant Year </th>
+            <th> Grant Term </th>
+            <th> View Certificate</th>
+            
+            <th> Data Uploaded on </th>
+        </tr>
+
+        {% for patent in patent %}
+        <tr>
+            <td> {{ patent.faculty.first_name }} {{ patent.faculty.last_name }} </td>
+            <td> {{ patent.academic_years }} </td>
+            <td> {{ patent.title }} </td>
+            <td> {{ patent.ptype }} </td>
+            <td> {{ patent.patentno }} </td>
+            <td> {{ patent.grantyears }} </td>
+            <td> {{ patent.term }} </td>
+            {% if patent.certificate.url is not null %}
+                <td><a href="{{ patent.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td>Data Not Available</td>
+            {% endif %}
+            
+            <td> {{ patent.date_created }} </td>  
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <div id="copyright">
+        <h5 class="bg-warning">Copyright Details</h5>
+        <table class="table table-hover ">
+        <tr>
+            <th> Faculty Name </th>
+            <th> Academic Year </th>
+            <th> Copyright Title </th>
+            <th> Granted On </th>
+            <th> Registeration Number </th>
+            <th> Country of Grant </th>
+            <th> View Certificate</th>
+           
+            <th> Data Uploaded on </th>      
+        </tr>
+
+        {% for copy in copy %}
+        <tr>
+            <td> {{ copy.faculty.first_name }} {{ copy.faculty.last_name }} </td>
+            <td> {{ copy.academic_years }} </td>
+            <td> {{ copy.title }} </td>
+            <td> {{ copy.grantdate }} </td>
+            <td> {{ copy.regno }} </td>
+            <td> {{ copy.grantcountry }} </td>
+            {% if copy.certificate.url is not null %}
+                <td><a href="{{ copy.certificate.url }}" target="_blank">View</a></td>
+            {% else %}
+                <td>Data Not Available</td>
+            {% endif %}
+            
+            <td> {{ copy.date_created }} </td>  
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% block js_block %}
+<script type = "text/javascript">
+jQuery(function () 
+{
+    $('#dynamictable').change(function () 
+    {
+        $('#mytable > div').css('display', 'none');
+        if (this.value) 
+        {
+            $('#' + this.value).css('display', 'block');
+        }
+    }).change()
+})
+</script>
+
+{% endblock %}
+
+{% endblock %}
+
+
+</body>
+</html>
